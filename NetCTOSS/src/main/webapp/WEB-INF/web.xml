@@ -33,4 +33,9 @@
       <servlet-name>mainServlet</servlet-name>
       <url-pattern>/toUpdateCost.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+      <servlet-name>mainServlet</servlet-name>
+      <url-pattern>/saveUpdate.do</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -107,6 +107,40 @@ public class CostDaoImpl implements Serializable, CostDao {
 		}
 	}
 	
+	public void saveUpdate(Cost c) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		try {
+			con = DBUtil2.getConnection();
+			String sql="update  cost set name=?,base_duration=?,"
+					                   +"base_cost=?,unit_cost=?,"
+					                    + "descr=?,cost_type=?"
+					                    + "where id=?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, c.getName());
+			/**
+			 * 2,3,4字段使用setObject 而不是使用setInt()/setDouble()原因：
+			 * 2,3,4字段可以为null,setInt()/setDouble()不支持*/
+			ps.setObject(2, c.getBaseDuration());
+			ps.setObject(3, c.getBaseCost());
+			ps.setObject(4,c.getUnitCost());
+			ps.setString(5, c.getDescr());
+			ps.setString(6, c.getCostType());
+			ps.setInt(7, c.getCostId());
+			
+			ps.executeUpdate();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally {
+			try {
+				DBUtil2.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public Cost findById(int id) {
 		Connection con =null;
 		PreparedStatement ps = null;

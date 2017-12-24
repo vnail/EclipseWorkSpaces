@@ -10,5 +10,6 @@ public interface CostDao {
 	public void save(Cost c);
 	
 	public Cost findById(int id);
+	public void saveUpdate(Cost c);
 
 }

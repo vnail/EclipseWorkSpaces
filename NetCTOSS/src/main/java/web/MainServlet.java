@@ -31,6 +31,8 @@ public class MainServlet extends HttpServlet {
 			addCost(req,res);
 		}else if("/toUpdateCost.do".equals(path)){
 			toUpdateCost(req,res);
+		}else if("/saveUpdate.do".equals(path)){
+			saveUpdate(req,res);
 		}else {
 			System.out.println("没有这个路径");
 			throw new RuntimeException("不存在的路径");
@@ -110,8 +112,50 @@ public class MainServlet extends HttpServlet {
 		
 		//转发
 		req.setAttribute("cost", cost);
-		req.getRequestDispatcher("WEB-INF/cost/update.jsp").forward(req, res);
+		req.getRequestDispatcher("WEB-INF/cost/update.jsp").forward(req, res);	
+	}
+	private void saveUpdate(HttpServletRequest req,HttpServletResponse res) throws ServletException,IOException{
+		req.setCharacterEncoding("utf-8");
+		String costId = req.getParameter("costId");
+		//资费名
+		String name=req.getParameter("name");
+		//基本时长
+		String baseDuration=req.getParameter("baseDuration");
+		//基本费用
+		String baseCost=req.getParameter("baseCost");
+		//单位费用
+		String unitCost=req.getParameter("unitCost");
+		//状态:0-开通；1-禁用
+		String status=req.getParameter("status");
+		//描述
+		String descr = req.getParameter("descr");
+		//资费类型1-包月；2-套餐；3-计时；
+		String costType=req.getParameter("costType");
 		
+		Cost c = new Cost();
+		if(costId!=null&&!costId.equals("")) {
+			c.setCostId(new Integer(costId));
+		}
+		c.setName(name);
+		c.setCostType(costType);
+		if(baseDuration!=null&&!baseDuration.equals("")) {
+			c.setBaseDuration(new Integer(baseDuration));
+		}
+		if(baseCost!=null&&!baseCost.equals("")) {
+			c.setBaseCost(new Double(baseCost));
+		}
+		if(unitCost!=null&&!unitCost.equals("")) {
+			c.setUnitCost(new Double(unitCost));
+		}
+		c.setDescr(descr);
 		
+		System.out.println(c);
+		
+		CostDao dao = new CostDaoImpl();
+		dao.saveUpdate(c);
+		
+		//当前：/entctoss/addCost.do
+		//目标：/netctoss/findCost.do
+		res.sendRedirect("findCosts.do");
 	}
 }
