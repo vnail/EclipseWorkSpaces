@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Dept.xml 在com.tarena.entity 包中  -->  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.cloud_note.dao.NoteDao">
+    <select id="findByBookId" 
+    parameterType="String" resultType="cn.tedu.cloud_note.entity.Note">
+        select * from cn_note where cn_notebook_id=#{BookId}
+    </select>   
+</mapper>
+
+
+
+
+
+
+

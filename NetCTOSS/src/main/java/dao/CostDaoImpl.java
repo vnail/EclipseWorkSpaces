@@ -72,7 +72,7 @@ public class CostDaoImpl implements Serializable, CostDao {
 		 c.setStarttime(rs.getTimestamp("startime"));
 		//资费类型1-包月；2-套餐；3-计时；
 		
-		 c.setCostType(rs.getString("cost_type"));
+		 c.setCostType(rs.getString("costtype"));
 		return c;
 	}
 	
@@ -83,8 +83,7 @@ public class CostDaoImpl implements Serializable, CostDao {
 		try {
 			con = DBUtil2.getConnection();
 			String sql="insert into cost values("+
-			            "cost_seq.nextval,"+
-					     "?,?,?,?,1,?,sysdate,null,?)";
+					     "null,?,?,?,?,1,?,now(),null,?)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, c.getName());
 			/**

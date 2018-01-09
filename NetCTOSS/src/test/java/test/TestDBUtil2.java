@@ -40,6 +40,7 @@ public class TestDBUtil2 {
 		}
 	}
 	
+	
 	public void testsave() {
 		CostDaoImpl cdi = new CostDaoImpl();
 		
